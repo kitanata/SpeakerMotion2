@@ -7,14 +7,6 @@
         .span9
           .row-fluid
             .span12
-              .search.pull-right
-                %form{method:"GET", action:"/search"}
-                  %input.search-query{name:"query", type:"text", placeholder:"Search"}
-                  %button.btn.btn-warning
-                    %i.icon-search
-
-          .row-fluid
-            .span12
               %ul.nav.nav-pills.pull-right
                 %li
                   %a{href:"/talks"}
@@ -51,7 +43,9 @@
                       %i.icon-signin
                       Login
                   %li
-                    %a#register-user-navbar Register
+                    %a#register{href:"#"}
+                      %i.icon-location-arrow
+                      Register
                 {{else}}
                   %li.dropdown
                     %a.dropdown-toggle{data-toggle:"dropdown", href:"#"}
@@ -66,8 +60,12 @@
                           My Profile
                       %li
                         %a{href:"/manager"}
+                          %i.icon-calendar
+                          My Events
+                      %li
+                        %a{href:"/settings"}
                           %i.icon-gears
-                          Imports
+                          Settings
                       %li
                         %a{href:"/profile/invite"}
                           %i.icon-mail-forward

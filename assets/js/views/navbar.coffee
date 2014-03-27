@@ -1,9 +1,9 @@
-SpkrBar.Views.NavBar = Backbone.View.extend
+SpeakerMotion.Views.NavBar = SpeakerMotion.Views.BaseView.extend
     template: "#navbar-templ"
 
     events:
-        "click #add-talk-navbar": "onClickAddTalk"
-        "click #register-user-navbar": "onClickRegisterUser"
+        "click #login": "onClickLogin"
+        "click #register": "onClickRegister"
 
     initialize: (options) ->
         if user
@@ -57,20 +57,27 @@ SpkrBar.Views.NavBar = Backbone.View.extend
         userIsEventPlanner: @userIsEventPlanner()
         profileLink: @userProfileLink()
 
-    onClickAddTalk: ->
-        editor = new SpkrBar.Views.TalkEdit
-            model: null
+    onClickLogin: ->
+        regModel = new SpeakerMotion.Models.Login()
+
+        editor = new SpeakerMotion.Views.Login
+            model: regModel
 
         $.colorbox
             html: editor.render().el
-            width: "700px"
-            height: "520px"
+            width: "500px"
+            height: "440px"
+        $.colorbox.resize()
 
-    onClickRegisterUser: ->
-        regModel = new SpkrBar.Models.Register()
+    onClickRegister: ->
+        console.log "onClickRegister"
+        regModel = new SpeakerMotion.Models.Register()
 
-        editor = new SpkrBar.Views.RegisterUser
+        editor = new SpeakerMotion.Views.Register
             model: regModel
+
+        console.log regModel
+        console.log editor
 
         $.colorbox
             html: editor.render().el

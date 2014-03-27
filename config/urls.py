@@ -2,6 +2,18 @@ import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
+from tastypie.api import Api
+from core.api.resources import *
+
+v1_api = Api(api_name='v1')
+
+v1_api.register(SpkrbarUserResource())
+v1_api.register(EventResource())
+v1_api.register(ProposalResource())
+v1_api.register(ReviewResource())
+v1_api.register(SpeakerBiographyResource())
+v1_api.register(TopicResource())
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -9,21 +21,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'core.views.index'),
-    url(r'^search$', 'core.views.search'),
-    url(r'^manager$', 'core.views.event_manager'),
-    url(r'^mobile', include('mobile.urls')),
-
-    #url(r'^', include('events.urls')),
-    url(r'^', include('talks.urls')),
-
-    url(r'^talks$', 'talks.views.talk_list'),
-    url(r'^speakers$', 'core.views.speaker_list'),
-
-    url(r'^', include('engagements.urls')),
     url(r'^', include('core.urls')),
-    url(r'^', include('locations.urls')),
-    url(r'^', include('blog.urls')),
     url(r'^feedback/', include('feedback.urls')),
+    url(r'^api/', include(v1_api.urls)),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

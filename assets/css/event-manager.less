@@ -40,6 +40,7 @@
             box-shadow: 0 2px 2px 1px #aaaaaa;
 
             .item {
+                position: relative;
                 cursor: pointer;
                 margin-bottom: 2px;
                 padding: 20px;
@@ -67,10 +68,7 @@
 
                 &.active {
                     background: darken(whitesmoke, 10%);
-
-                    i {
-                        color: @orange;
-                    }
+                    color: @orange;
                 }
 
                 &.invite-speakers {
@@ -85,6 +83,18 @@
                             display: block;
                             padding: 30px 20px;
                         }
+                    }
+                }
+
+                i.archive-event {
+                    color: #666;
+                    font-size: 22px;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+
+                    &:hover {
+                        color: darkred;
                     }
                 }
             }

@@ -1,7 +1,8 @@
-window.SpkrBar =
+window.SpeakerMotion =
     Models: {}
     Collections: {}
     Views: {}
+    Layouts: {}
     markdownTitle: (markItUp, char) ->
         heading = Array($.trim(markItUp.selection||markItUp.placeHolder).length + 1).join char
         '\n'+heading+'\n'

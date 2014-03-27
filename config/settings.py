@@ -15,8 +15,8 @@ APPEND_SLASH = False
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'spkrbar',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'speakermotion',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'spkrbar',
         'PASSWORD': 'spkrbar',
@@ -27,7 +27,7 @@ DATABASES = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',#memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }
@@ -49,7 +49,7 @@ EMAIL_PORT          = 587
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'core.SpkrbarUser'
+AUTH_USER_MODEL = 'core.User'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # this is default
@@ -82,7 +82,7 @@ USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/Users/raymond/Projects/SpkrBar/SpkrBar/media'
+MEDIA_ROOT = '/Users/raymond/Projects/SpeakerMotion2/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -93,7 +93,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/Users/raymond/Projects/SpkrBar/SpkrBar/static'
+STATIC_ROOT = '/Users/raymond/Projects/SpeakerMotion2/static'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -184,27 +184,21 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'django_markdown',
+    'tastypie',
     'grappelli',
     'django.contrib.admin',
     'django_gears',
-    'south',
-    'rest_framework',
     'core',
-    'locations',
-    'talks',
-    'engagements',
-    'blog',
-    'mobile',
     'feedback'
 )
 
 if DEBUG:
-    LOG_ROOT = '/Users/raymond/Projects/SpkrBar/SpkrBar/'
-    TEMPLATE_DIRS = ('/Users/raymond/Projects/SpkrBar/SpkrBar/templates',)
+    LOG_ROOT = '/Users/raymond/Projects/SpeakerMotion2/'
+    TEMPLATE_DIRS = ('/Users/raymond/Projects/SpeakerMotion2/templates',)
     STRIPE_KEY = "sk_test_4BRi0zeFjSm2svpVWFyI3EFw"
 else:
-    LOG_ROOT = '/home/spkrbar/SpkrBar/'
-    TEMPLATE_DIRS = ('/home/spkrbar/SpkrBar/templates',)
+    LOG_ROOT = '/home/speakermotion/SpeakerMotion/'
+    TEMPLATE_DIRS = ('/home/speakermotion/SpeakerMotion/templates',)
     STRIPE_KEY = 'sk_live_H8Ubq4wnCJRPr73opWbusRYS'
 
 LOGGING = {

@@ -1,12 +1,9 @@
-SpkrBar.Models.Register = Backbone.Model.extend
+SpeakerMotion.Models.Register = Backbone.Model.extend
     defaults:
         email: ""
         full_name: ""
-        about_me: ""
         password: ""
         confirm: ""
-        plan_name: "speaker"
-        is_event_planner: false
 
     initialize: ->
 

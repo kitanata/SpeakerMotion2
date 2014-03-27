@@ -2,11 +2,7 @@
   %script#event-manager-templ{type:"text/x-handlebars-template"}
     .row-fluid
       .section-title
-        {{#if forever}}
-          %h1 Event Management Dashboard. (Forever a VIP)
-        {{else}}
-          %h1 Event Management Dashboard.
-        {{/if}}
+          %h1 Event Manager
 
     .event-manager
       .row-fluid
@@ -15,14 +11,14 @@
             .dashboard-nav
               {{#each imports}}
               .item{data-id:"{{id}}"}
+                %i.icon-remove.archive-event{data-id:"{{id}}"}
                 %h2
                   {{name}}
-                  %i.icon-chevron-right.pull-right
               {{/each}}
               .item.new-import
                 %h2
                   %i.icon-plus-sign
-                  New Import
+                  New Event
               .item.invite-speakers
                 %h3
                   %a{href:"/profile/invite", target:"_blank"}

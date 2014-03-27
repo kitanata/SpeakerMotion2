@@ -1,20 +1,15 @@
-from core.models.spkrbar_user import SpkrbarUser
-from core.models.notification import Notification
-from core.models.user_link import UserLink
-from core.models.user_tag import UserTag
-from core.models.followers import UserFollowing
-from core.models.event_upload import EventUpload
-from core.models.event_upload_error import EventUploadError, EventUploadTypes
-from core.models.event_upload_summary import EventUploadSummary
+from core.models.user import User
+from core.models.event import Event
+from core.models.proposal import Proposal
+from core.models.review import Review
+from core.models.speaker_biography import SpeakerBiography
+from core.models.topic import Topic
 
 __all__ = [
-    'SpkrbarUser',
-    'EventUpload',
-    'EventUploadError',
-    'EventUploadTypes',
-    'EventUploadSummary',
-    'UserTag',
-    'Notification',
-    'UserLink',
-    'UserFollowing'
+    'User',
+    'Event',
+    'Proposal',
+    'Review',
+    'SpeakerBiography',
+    'Topic'
     ]
