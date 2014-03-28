@@ -1,5 +1,5 @@
 SpeakerMotion.Views.CreateCampaign = SpeakerMotion.Views.BaseView.extend
-    className: "campaign-form"
+    className: "colorboxed-form"
     template: "#create-campaign-templ"
 
     events:

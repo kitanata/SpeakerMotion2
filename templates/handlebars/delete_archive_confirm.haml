@@ -1,0 +1,17 @@
+{% verbatim %}
+  %script#delete-archive-confirm-templ{type:"text/x-handlebars-template"}
+    .row-fluid
+      .span12
+        %h2 Are you sure?
+
+    .row-fluid
+      .span12
+        %p
+          Are you sure you want to delete this? Deletion cannot be undone.
+        %p
+          If you archive this instead, you can return to it later.
+
+        .btn-group
+          %a#confirm.btn.btn-error Delete
+          %a#archive.btn.btn-warning Archive (recommended)
+{% endverbatim %}

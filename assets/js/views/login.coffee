@@ -1,5 +1,5 @@
 SpeakerMotion.Views.Login = SpeakerMotion.Views.BaseView.extend
-    className: "login-form"
+    className: "colorboxed-form"
     template: "#login-templ"
 
     events:

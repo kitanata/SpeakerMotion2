@@ -4,12 +4,14 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
 
     events:
         "click #create-campaign": "onClickCreateCampaign"
+        "click .delete-campaign": "onClickDeleteCampaign"
         "click .item": "onClickEventUploadItem"
         "click .cancel": "onClickCancel"
         "click .create": "onClickCreateEventUpload"
 
     initialize: (options) ->
         @shouldRender = false
+        @selected = null
 
         @stripeHandler = StripeCheckout.configure
             key: 'pk_test_XuZFBi6ffYp4PwK5VhX4Zz5K'
@@ -22,6 +24,10 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
         @listenTo(@campaigns, 'add remove reset', @invalidate)
 
         @invalidate()
+
+    afterRender: ->
+        if @selected
+            $('.item[data-id=' + @selected.id + ']').addClass('active')
 
     renderUploadTemplate: ->
         html = @uploadTemplateTemplate
@@ -81,6 +87,7 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
             model: campaignModel
             success: =>
                 @campaigns.add campaignModel
+                @selected = campaignModel
                 $.colorbox.close()
 
         $.colorbox
@@ -89,18 +96,31 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
             height: "440px"
         $.colorbox.resize()
 
+    onClickDeleteCampaign: (el) ->
+        campaignId = $(el.currentTarget).data('id')
+
+        campaign = @campaigns.find (x) => x.id == campaignId
+
+        confirm = new SpeakerMotion.Views.DeleteArchiveConfirm
+            name: campaign.get('name')
+            on_archive: =>
+                campaign.set 'archived', true
+                campaign.save()
+                @invalidate()
+            on_delete: =>
+                campaign.destroy
+                    success: =>
+                        @campaigns.remove campaign
+
+        $.colorbox
+            html: confirm.render().el
+            width: "400px"
+            height: "440px"
+        $.colorbox.resize()
+
     onClickEventUploadItem: (el) ->
         $('.item').removeClass('active')
         $(el.currentTarget).addClass('active')
-
-        itemId = $(el.currentTarget).data 'id'
-
-        if itemId != undefined
-            @model = @eventImports.find (x) => x.id == itemId
-        else
-            @model = null
-
-        @updateDashboard()
 
     onClickCancel: ->
         @$el.find('.dashboard').html ""
@@ -279,5 +299,11 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
             @$el.find('#loc-state').val('');
             @$el.find('#loc-zip').val('');
 
+    mapCampaigns: ->
+        items = @campaigns.filter (x) -> x.get('archived') == false
+        items.map (x) -> 
+            'id': x.id
+            'name': x.get('name')
+
     context: ->
-        campaigns: @campaigns.map (x) -> {'id': x.id, 'name': x.get('name')}
+        campaigns: @mapCampaigns()

@@ -1,5 +1,5 @@
 SpeakerMotion.Views.Register = SpeakerMotion.Views.BaseView.extend
-    className: "register-form"
+    className: "colorboxed-form"
     template: "#register-templ"
 
     events:
