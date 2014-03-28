@@ -1,4 +1,4 @@
-from event_resource import EventResource
+from campaign_resource import CampaignResource
 from proposal_resource import ProposalResource
 from review_resource import ReviewResource
 from speaker_biography_resource import SpeakerBiographyResource
@@ -7,7 +7,7 @@ from topic_resource import TopicResource
 
 __all__ = [
     'UserResource',
-    'EventResource',
+    'CampaignResource',
     'ProposalResource',
     'ReviewResource',
     'SpeakerBiographyResource',

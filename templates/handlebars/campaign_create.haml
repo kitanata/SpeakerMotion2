@@ -1,0 +1,18 @@
+{% verbatim %}
+  %script#create-campaign-templ{type:"text/x-handlebars-template"}
+    .row-fluid
+      .span12
+        %h2 New Campaign
+
+    .row-fluid
+      .form-area
+        .span12
+          #alert-area{style:"display:none"}
+
+          %label{for:"campaign-name"} Campaign Name:
+          %input#campaign-name{type:"text"}
+
+    .row-fluid{style:"margin-top:20px"}
+      .span12
+        %input#submit.btn.btn-warning{type:"submit", value:"Create"}
+{% endverbatim %}

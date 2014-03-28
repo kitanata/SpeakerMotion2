@@ -4,9 +4,13 @@
   #dashboard-container
 
   - include 'handlebars/dashboard.haml'
+  - include 'handlebars/campaign_create.haml'
 
 - block 'scripts'
   %script{src:"https://checkout.stripe.com/checkout.js"}
   %script{type:"text/javascript"}
-    var dashboard = new SpeakerMotion.Layouts.Dashboard();
+    var dashboard = new SpeakerMotion.Layouts.Dashboard({
+        'campaigns': new SpeakerMotion.Collections.Campaigns()
+    });
+
     $('#dashboard-container').html(dashboard.render().el);

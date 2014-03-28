@@ -8,7 +8,7 @@ from core.api import *
 v1_api = Api(api_name='v1')
 
 v1_api.register(UserResource())
-v1_api.register(EventResource())
+v1_api.register(CampaignResource())
 v1_api.register(ProposalResource())
 v1_api.register(ReviewResource())
 v1_api.register(SpeakerBiographyResource())

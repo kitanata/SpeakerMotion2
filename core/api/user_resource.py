@@ -1,5 +1,7 @@
 import json
 from tastypie.resources import ModelResource
+from tastypie.authorization import Authorization
+from tastypie.exceptions import Unauthorized
 from core.models import User
 from core.tastypie import actionurls, action
 
@@ -9,11 +11,48 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as djlogout
 from django.shortcuts import redirect
 
+class UserObjectsAuthorization(Authorization):
+    def read_list(self, object_list, bundle):
+        return object_list.filter(is_active=True)
+
+    def read_detail(self, object_list, bundle):
+        return bundle.obj.is_active
+
+    def create_list(self, object_list, bundle):
+        raise Unauthorized("Sorry, no creations.")
+
+    def create_detail(self, object_list, bundle):
+        raise Unauthorized("Sorry, no creations.")
+
+    def update_list(self, object_list, bundle):
+        allowed = []
+
+        # Since they may not all be saved, iterate over them.
+        for obj in object_list:
+            if obj == bundle.request.user and obj.is_active:
+                allowed.append(obj)
+
+        return allowed
+
+    def update_detail(self, object_list, bundle):
+        return bundle.obj == bundle.request.user and bundle.obj.is_active
+
+    def delete_list(self, object_list, bundle):
+        raise Unauthorized("Sorry, no deletes.")
+
+    def delete_detail(self, object_list, bundle):
+        if bundle.obj == bundle.request.user:
+            bundle.obj.is_active = False
+        else:
+            raise Unauthorized("Sorry, no deletes.")
+
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = UserObjectsAuthorization()
 
     def prepend_urls(self):
         return actionurls(self)

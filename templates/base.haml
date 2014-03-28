@@ -63,6 +63,11 @@
   - include 'handlebars/register.haml'
   - include 'handlebars/login.haml'
 
+  %script#alert-templ{type:"text/x-handlebars-template"}
+    .alert.alert-error
+      %button.close{type:"button", data-dismiss:"alert"} &times;
+      {{error}}
+
   %script{type:"text/javascript"}
     - if user.is_authenticated
       var userId = {{ user.id }};

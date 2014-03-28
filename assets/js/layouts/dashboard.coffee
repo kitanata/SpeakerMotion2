@@ -3,7 +3,7 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
     className: "dashboard"
 
     events:
-        "click .new-import": "onClickNewImport"
+        "click #create-campaign": "onClickCreateCampaign"
         "click .item": "onClickEventUploadItem"
         "click .cancel": "onClickCancel"
         "click .create": "onClickCreateEventUpload"
@@ -17,27 +17,11 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
             token: (token, args) =>
                 @finalizeImport(token.id)
 
-        @createEventImportTemplate = Handlebars.compile($("#create-event-import-templ").html())
+        (@campaigns = options.campaigns).fetch()
+
+        @listenTo(@campaigns, 'add remove reset', @invalidate)
+
         @invalidate()
-
-    afterRender: ->
-        @updateDashboard()
-
-    renderNewImportTemplate: ->
-        @$el.find('.dashboard').html @createEventImportTemplate({})
-
-        @$el.find("#loc-name").typeahead
-            source: @locations.map (x) -> x.get('name')
-            updater: (item) =>
-                @curLocation = @locations.find (x) -> x.get('name') == item
-                if @curLocation
-                    @$el.find('#loc-address').val(@curLocation.get('address'))
-                    @$el.find('#loc-city').val(@curLocation.get('city'))
-                    @$el.find('#loc-state').val(@curLocation.get('state'))
-                    @$el.find('#loc-zip').val(@curLocation.get('zip_code'))
-                item
-
-        @$el.find('.new-import').addClass('active')
 
     renderUploadTemplate: ->
         html = @uploadTemplateTemplate
@@ -90,8 +74,20 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
         else
             @showValidationAlert()
 
-    onClickNewImport: ->
-        @renderNewImportTemplate()
+    onClickCreateCampaign: ->
+        campaignModel = new SpeakerMotion.Models.Campaign()
+
+        editor = new SpeakerMotion.Views.CreateCampaign
+            model: campaignModel
+            success: =>
+                @campaigns.add campaignModel
+                $.colorbox.close()
+
+        $.colorbox
+            html: editor.render().el
+            width: "300px"
+            height: "440px"
+        $.colorbox.resize()
 
     onClickEventUploadItem: (el) ->
         $('.item').removeClass('active')
@@ -284,4 +280,4 @@ SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
             @$el.find('#loc-zip').val('');
 
     context: ->
-        {}
+        campaigns: @campaigns.map (x) -> {'id': x.id, 'name': x.get('name')}

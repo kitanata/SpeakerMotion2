@@ -5,4 +5,5 @@ from django.shortcuts import redirect
 def dashboard(request):
     if request.user.is_anonymous():
         return redirect('/')
+
     return {}

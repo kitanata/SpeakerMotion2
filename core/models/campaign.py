@@ -1,6 +1,6 @@
 from django.db import models
 
-class Event(models.Model):
+class Campaign(models.Model):
     name = models.CharField(max_length=140)
     code = models.CharField(max_length=32, default="")
 
@@ -9,6 +9,7 @@ class Event(models.Model):
     speakers = models.ManyToManyField('core.User', related_name='campaigns_applied_to')
     published = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         app_label = 'core'

@@ -1,37 +1,30 @@
-SpeakerMotion.Views.Login = SpeakerMotion.Views.BaseView.extend
-    className: "login-form"
-    template: "#login-templ"
+SpeakerMotion.Views.CreateCampaign = SpeakerMotion.Views.BaseView.extend
+    className: "campaign-form"
+    template: "#create-campaign-templ"
 
     events:
-        "click #login-submit": "onLoginSubmit"
+        "click #submit": "onSubmit"
 
     initialize: (options) ->
         @alertTempl = Handlebars.compile($('#alert-templ').html())
         @listenTo(@model, "change", @render)
 
+        @success = options.success
+
     context: ->
-        email: @model.get 'email'
-        password: @model.get 'password'
+        name: @model.get 'name'
 
-    afterRender: ->
-        Backbone.Validation.bind this, 
-            valid: (view, attr) =>
-                @$el.find('#' + attr + '-error').text ''
-                $.colorbox.resize()
-            invalid: (view, attr, error) =>
-                @$el.find('#' + attr + '-error').text '(' + error + ')'
-                $.colorbox.resize()
-        $.colorbox.resize()
-
-    onLoginSubmit: ->
+    onSubmit: ->
+        console.log @model
+        console.log @$el.find('#campaign-name').val()
         @model.set
-            email: @$el.find('#email').val()
-            password: @$el.find('#password').val()
+            name: @$el.find('#campaign-name').val()
+            manager: user
 
         if @model.isValid(true)
             @model.save null,
                 success: =>
-                    window.location = '/'
+                    @success()
                 error: (model, xhr, options) =>
                     error = JSON.parse(xhr.responseText)
                     if error.error == "account_disabled"

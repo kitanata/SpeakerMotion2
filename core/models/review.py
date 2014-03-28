@@ -4,6 +4,7 @@ class Review(models.Model):
     user = models.ForeignKey('core.User', related_name='reviews')
     proposal = models.ForeignKey('core.Proposal', related_name='reviews')
     reviewed = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
 
     #(How skilled is the speaker in the topic?)e
     expertise = models.IntegerField(default=0)

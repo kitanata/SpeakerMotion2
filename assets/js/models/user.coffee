@@ -1,8 +1,7 @@
-SpeakerMotion.Models.User = Backbone.RelationalModel.extend
+SpeakerMotion.Models.User = Backbone.Model.extend
     defaults:
         full_name: ""
 
-    urlRoot: "/api/v1/user"
+    initialize: ->
 
-    toJSON: ->
-        full_name: @get('full_name')
+    urlRoot: "/api/v1/user/"

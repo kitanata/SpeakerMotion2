@@ -4,6 +4,7 @@ class SpeakerBiography(models.Model):
     user = models.ForeignKey('core.User', related_name='biographies')
     biography = models.TextField()
     photo = models.ImageField(upload_to="photo", blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         app_label = 'core'

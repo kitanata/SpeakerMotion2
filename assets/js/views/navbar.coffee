@@ -59,12 +59,9 @@ SpeakerMotion.Views.NavBar = SpeakerMotion.Views.BaseView.extend
 
     onClickLogin: ->
         loginModel = new SpeakerMotion.Models.Login()
-        console.log loginModel
 
         editor = new SpeakerMotion.Views.Login
             model: loginModel
-
-        console.log editor
 
         $.colorbox
             html: editor.render().el

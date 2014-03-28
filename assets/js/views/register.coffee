@@ -6,7 +6,7 @@ SpeakerMotion.Views.Register = SpeakerMotion.Views.BaseView.extend
         "click #register-submit": "onRegisterSubmit"
 
     initialize: (options) ->
-        @alertTempl = Handlebars.compile($('#register-alert-templ').html())
+        @alertTempl = Handlebars.compile($('#alert-templ').html())
         @listenTo(@model, "change", @render)
 
     context: ->
