@@ -4,14 +4,8 @@
   #index-container
 
   - include 'handlebars/index.haml'
-  - include 'handlebars/talk_thumbnail.haml'
 
 - block 'scripts'
   %script{type:"text/javascript"}
-    talks = new SpkrBar.Collections.Talks({{talks|safe}})
-
-    var indexPage = new SpkrBar.Views.IndexPage({
-        collection: talks
-    });
-
-    $('#index-container').html(indexPage.render().el);
+    var layout = new SpeakerMotion.Layouts.Index({});
+    $('#index-container').html(layout.render().el);

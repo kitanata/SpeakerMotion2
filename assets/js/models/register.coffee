@@ -7,7 +7,7 @@ SpeakerMotion.Models.Register = Backbone.Model.extend
 
     initialize: ->
 
-    urlRoot: "/register"
+    urlRoot: "/api/v1/user/register/"
 
     validation:
         email:

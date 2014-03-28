@@ -1,0 +1,12 @@
+- extends 'base.haml'
+
+- block 'content-container'
+  #dashboard-container
+
+  - include 'handlebars/dashboard.haml'
+
+- block 'scripts'
+  %script{src:"https://checkout.stripe.com/checkout.js"}
+  %script{type:"text/javascript"}
+    var dashboard = new SpeakerMotion.Layouts.Dashboard();
+    $('#dashboard-container').html(dashboard.render().el);

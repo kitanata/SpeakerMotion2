@@ -58,14 +58,17 @@ SpeakerMotion.Views.NavBar = SpeakerMotion.Views.BaseView.extend
         profileLink: @userProfileLink()
 
     onClickLogin: ->
-        regModel = new SpeakerMotion.Models.Login()
+        loginModel = new SpeakerMotion.Models.Login()
+        console.log loginModel
 
         editor = new SpeakerMotion.Views.Login
-            model: regModel
+            model: loginModel
+
+        console.log editor
 
         $.colorbox
             html: editor.render().el
-            width: "500px"
+            width: "300px"
             height: "440px"
         $.colorbox.resize()
 
@@ -81,6 +84,6 @@ SpeakerMotion.Views.NavBar = SpeakerMotion.Views.BaseView.extend
 
         $.colorbox
             html: editor.render().el
-            width: "500px"
+            width: "300px"
             height: "440px"
         $.colorbox.resize()

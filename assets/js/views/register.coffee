@@ -1,6 +1,6 @@
 SpeakerMotion.Views.Register = SpeakerMotion.Views.BaseView.extend
-    className: "register-user"
-    template: "#register-user-templ"
+    className: "register-form"
+    template: "#register-templ"
 
     events:
         "click #register-submit": "onRegisterSubmit"
@@ -9,22 +9,11 @@ SpeakerMotion.Views.Register = SpeakerMotion.Views.BaseView.extend
         @alertTempl = Handlebars.compile($('#register-alert-templ').html())
         @listenTo(@model, "change", @render)
 
-        @mode = "prereg"
-        @plan = "speaker"
-
-        if options.plan == 'forever' or options.plan == 'yearly'
-            @plan = options.plan
-
-
     context: ->
-        forever_plan: (@plan == 'forever')
-        yearly_plan: (@plan == 'yearly')
-        is_event_planner: (@plan == 'forever' or @plan == 'yearly')
         email: @model.get 'email'
         password: @model.get 'password'
         confirm: @model.get 'confirm'
         full_name: @model.get 'full_name'
-        about_me: @model.get 'about_me'
 
     afterRender: ->
         Backbone.Validation.bind this, 
@@ -36,25 +25,12 @@ SpeakerMotion.Views.Register = SpeakerMotion.Views.BaseView.extend
                 $.colorbox.resize()
         $.colorbox.resize()
 
-    onClickSpeaker: ->    
-        @plan = 'speaker'
-
-    onClickYearly: ->
-        @plan = 'yearly'
-
     onRegisterSubmit: ->
         @model.set
             email: @$el.find('#email').val()
             password: @$el.find('#password').val()
             confirm: @$el.find('#confirm').val()
             full_name: @$el.find('#full_name').val()
-            about_me: @$el.find('#about_me').val()
-            plan_name: @plan
-
-        if @plan == "speaker"
-            @model.set 'is_event_planner', false
-        else
-            @model.set 'is_event_planner', true
 
         if @model.isValid(true)
             @model.save null,

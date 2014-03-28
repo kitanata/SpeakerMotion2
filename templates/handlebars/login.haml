@@ -1,0 +1,28 @@
+{% verbatim %}
+  %script#login-templ{type:"text/x-handlebars-template"}
+    .row-fluid
+      .span12
+        %h2 Welcome back!
+
+    .row-fluid
+      .form-area
+        .span12
+          #alert-area{style:"display:none"}
+
+          %label{for:"email"} Your Email:
+          #email-error.error
+          %input#email{type:"email", name:"email", value:"{{email}}"}
+
+          %label{for:"password"} Password:
+          #password-error.error
+          %input#password{type:"password", name:"password", value:"{{password}}"}
+
+    .row-fluid{style:"margin-top:20px"}
+      .span12
+        %input#login-submit.btn.btn-warning{type:"submit", value:"Sign In"}
+
+  %script#register-alert-templ{type:"text/x-handlebars-template"}
+    .alert.alert-error
+      %button.close{type:"button", data-dismiss:"alert"} &times;
+      {{error}}
+{% endverbatim %}

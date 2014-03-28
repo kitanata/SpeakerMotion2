@@ -3,11 +3,11 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
 from tastypie.api import Api
-from core.api.resources import *
+from core.api import *
 
 v1_api = Api(api_name='v1')
 
-v1_api.register(SpkrbarUserResource())
+v1_api.register(UserResource())
 v1_api.register(EventResource())
 v1_api.register(ProposalResource())
 v1_api.register(ReviewResource())
@@ -21,7 +21,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'core.views.index'),
-    url(r'^', include('core.urls')),
+    url(r'^dashboard/$', 'core.views.dashboard'),
+
     url(r'^feedback/', include('feedback.urls')),
     url(r'^api/', include(v1_api.urls)),
 

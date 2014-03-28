@@ -1,27 +1,15 @@
-SpkrBar.Views.EventManagerPage = Backbone.View.extend
-    template: "#event-manager-templ"
-    className: "event-manager"
+SpeakerMotion.Layouts.Dashboard = SpeakerMotion.Views.BaseView.extend
+    template: "#dashboard-templ"
+    className: "dashboard"
 
     events:
         "click .new-import": "onClickNewImport"
         "click .item": "onClickEventUploadItem"
         "click .cancel": "onClickCancel"
         "click .create": "onClickCreateEventUpload"
-        "click .to-download": "onClickToDownload"
-        "click .to-upload": "onClickToUpload"
-        "click .do-upload": "onClickDoUpload"
-        "click .start-upload": "onClickStartUpload"
-        "click .to-preview": "onClickToPreview"
-        "click .confirm-upload": "onClickConfirmUpload"
-        "click .upgrade-plan": "onClickUpgradePlan"
-        "click .downgrade-plan": "onClickDowngradePlan"
-        "click #loc-reset": "onClickLocationReset"
-        "change #loc-name": "onChangedLocationName"
 
     initialize: (options) ->
         @shouldRender = false
-
-        @talkViews = []
 
         @stripeHandler = StripeCheckout.configure
             key: 'pk_test_XuZFBi6ffYp4PwK5VhX4Zz5K'
@@ -30,57 +18,10 @@ SpkrBar.Views.EventManagerPage = Backbone.View.extend
                 @finalizeImport(token.id)
 
         @createEventImportTemplate = Handlebars.compile($("#create-event-import-templ").html())
-        @downloadTemplateTemplate = Handlebars.compile($("#download-template-templ").html())
-        @uploadTemplateTemplate = Handlebars.compile($("#upload-template-templ").html())
-        @uploadingTemplate = Handlebars.compile($("#uploading-templ").html())
-        @validationFailedTemplate = Handlebars.compile($("#validation-failed-templ").html())
-        @uploadPreviewTemplate = Handlebars.compile($("#upload-preview-templ").html())
-        @confirmBillingTemplate = Handlebars.compile($("#confirm-billing-templ").html())
-        @importStartedTemplate = Handlebars.compile($("#import-started-templ").html())
-        @importFinishedTemplate = Handlebars.compile($("#import-finished-templ").html())
-
-        @locations = new SpkrBar.Collections.Locations()
-        @locations.fetch()
-
-        @eventImports = new SpkrBar.Collections.EventImports()
-        @eventImports.fetch()
-
-        @listenTo(@eventImports, "add remove reset", @invalidate)
-
         @invalidate()
-
-    render: ->
-        source = $(@template).html()
-        template = Handlebars.compile(source)
-
-        @$el.html(template(@context()))
-        @
-
-    beforeRender: ->
 
     afterRender: ->
         @updateDashboard()
-
-    updateDashboard: ->
-        if @model
-            state = @model.get('state')
-
-            if state == "AT_REST"
-                @$el.find('.dashboard').html @downloadTemplateTemplate({})
-            else if state == "TEMPLATE_DOWNLOADED"
-                @renderUploadTemplate()
-            else if state == "VALIDATION_FAILED"
-                @renderFailedValidation()
-            else if state == "VALIDATION_SUCCESSFUL"
-                @renderUploadPreview()
-            else if state == "IMPORT_STARTED"
-                @renderImportStarted()
-            else if state == "IMPORT_FINISHED"
-                @renderImportFinished()
-            else
-                @renderNewImportTemplate()
-        else
-            @renderNewImportTemplate()
 
     renderNewImportTemplate: ->
         @$el.find('.dashboard').html @createEventImportTemplate({})
@@ -343,7 +284,4 @@ SpkrBar.Views.EventManagerPage = Backbone.View.extend
             @$el.find('#loc-zip').val('');
 
     context: ->
-        imports: @eventImports.map (x) -> 
-            id: x.id
-            name: x.get('name')
-        forever: user.get('forever_access')
+        {}

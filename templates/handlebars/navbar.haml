@@ -9,43 +9,17 @@
             .span12
               %ul.nav.nav-pills.pull-right
                 %li
-                  %a{href:"/talks"}
-                    %i.icon-comments-alt
-                    Talks
-                %li
-                  %a{href:"/speakers"}
-                    %i.icon-group
-                    Speakers
-                %li
-                  %a{href:"/events"}
-                    %i.icon-calendar
-                    Events
-
-                {{#if userLoggedIn}}
-                  %li
-                    %a#add-talk-navbar
-                      %i.icon-plus
-                      Add Talk
-                {{/if}}
-
-                %li
                   %a.twitter-follow-button{href:"https://twitter.com/SpkrBar", target:"_blank"}
                     %i.icon-twitter
                     Follow Us
-                %li
-                  %a{href:"/blog"}
-                    %i.icon-file-text
-                    Blog
 
                 {{#unless userLoggedIn}}
                   %li
-                    %a{href:"/login"}
-                      %i.icon-signin
-                      Login
+                    %a#login{href:"#"}
+                      Sign In
                   %li
                     %a#register{href:"#"}
-                      %i.icon-location-arrow
-                      Register
+                      Join Us
                 {{else}}
                   %li.dropdown
                     %a.dropdown-toggle{data-toggle:"dropdown", href:"#"}
@@ -59,15 +33,15 @@
                           %i.icon-user
                           My Profile
                       %li
-                        %a{href:"/manager"}
+                        %a{href:"/dashboard/"}
                           %i.icon-calendar
                           My Events
                       %li
-                        %a{href:"/settings"}
+                        %a{href:"/settings/"}
                           %i.icon-gears
                           Settings
                       %li
-                        %a{href:"/profile/invite"}
+                        %a{href:"/invite/"}
                           %i.icon-mail-forward
                           Invites
                       {{#if userIsStaff}}
@@ -77,7 +51,7 @@
                             Admin
                       {{/if}}
                       %li
-                        %a{href:"/logout"}
+                        %a{href:"/api/v1/user/logout/"}
                           %i.icon-signout
                           Logout
                 {{/unless}}
